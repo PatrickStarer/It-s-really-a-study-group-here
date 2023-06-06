@@ -1,2 +1,5 @@
 # It-s-really-a-study-group-here
-It's really  really  really  really a study group here
+## 大家好哦，这里是 赛过捷豹 学习小组，学it，月薪过亿 ，就来赛过捷豹！！！
+* 成员每天上传三道以内 认为有难度、有价值的面试题，第二天晚上使用腾讯会议讨论；
+
+
