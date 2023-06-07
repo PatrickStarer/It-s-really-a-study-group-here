@@ -8,7 +8,11 @@ id conut    id  tid
 2   100     2    3 
 3   100     3    1
 
-redis ticket:1 2  redis ticket:1 100
+redis i 1 1
+        2 1
+        3 1
+
+redis ticket:1 100
 lua脚本：保证redis原子性操作 保证不超卖.
 redisson 里面内嵌有lua
 redis宕机、mysql数据不一致：支付接口回调消费者使用mq减库存。
