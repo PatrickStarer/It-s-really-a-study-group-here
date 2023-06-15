@@ -1,7 +1,7 @@
 * java中的String类，
 * String str1 = "hello World"; 这个str1放在jvm的哪个部分？
 * String str2 = new String("Hello World");这个str2放在jvm的哪个部分？
-
+* 这两个部分 在jvm中有什么联系
 ```java
 
         String str1 = "s1";
