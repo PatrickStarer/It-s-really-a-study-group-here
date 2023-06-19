@@ -1,0 +1,1 @@
+threadlocal的作用，注意事项讲一下。怎么把threadlocal传入到子线程里
