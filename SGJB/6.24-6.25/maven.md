@@ -1,0 +1,2 @@
+知道pom.xml文件里都有哪些标签吗，都可以说说
+Dependency management和dependency的区别？
