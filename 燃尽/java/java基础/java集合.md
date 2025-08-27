@@ -62,3 +62,30 @@ Node 节点的 value 和 next 是 volatile，确保能读到其他线程修改�
    迁移过程：将旧数组的节点重新计算索引，迁移到新数组（长度为旧数组的 2 倍），迁移完成后用新数组替换旧数组。
 
 ## List
+1. 什么是List？它与Collection、Set有什么区别？
+定义：List是 Java 集合框架中Collection接口的子接口，用于存储有序、可重复的元素（允许 null 值）。
+与Collection的关系：List继承自Collection，拥有Collection的所有方法（如add()、remove()、size()等），并额外提供了基于索引的操作（如get(int index)、set(int index, E element)）。
+与Set的区别：
+List：有序（元素插入顺序可保留）、可重复、支持索引访问。
+Set：set也继承Collection，无序（部分实现如LinkedHashSet有序）、不可重复（依赖equals()和hashCode()判断）、不支持索引访问。
+2. List的常用实现类有哪些？各自的底层数据结构是什么？
+常见实现类包括ArrayList、LinkedList、Vector、Stack，底层结构差异如下：
+ArrayList：底层是动态数组（数组长度可自动扩容），默认初始容量为 10（JDK1.8 及以上）。
+LinkedList：底层是双向链表（JDK1.6 之前为循环双向链表，之后移除循环结构），每个节点包含prev（前驱指针）、next（后继指针）和元素值。
+Vector：底层是动态数组，与ArrayList类似，但方法加了synchronized修饰，是线程安全的。
+Stack：继承自Vector，底层是动态数组，实现了 “后进先出（LIFO）” 的栈结构（已被Deque替代，不推荐使用）。
+3. ArrayList的扩容机制是怎样的？ 
+ArrayList底层是数组，容量固定，当元素数量超过容量时会自动扩容，步骤如下：
+初始容量：默认构造器创建的ArrayList在 JDK1.8 中是延迟初始化（首次add()时才分配容量 10）；若指定初始容量，则直接按指定值初始化。
+触发扩容：当添加元素后，元素数量（size）超过当前容量（elementData.length）时，触发扩容。
+计算新容量：
+默认扩容为原容量的 1.5 倍（公式：oldCapacity + (oldCapacity >> 1)，位运算效率更高）。
+若扩容后仍不足（如添加大量元素），则直接扩容至所需容量（Math.max(newCapacity, minCapacity)）。
+复制元素：通过Arrays.copyOf()创建新数组，将原数组元素复制到新数组，原数组被垃圾回收。
+优化建议：若已知大致元素数量，创建ArrayList时指定初始容量（如new ArrayList(1000)），可减少扩容次数，提升性能。
+4. List的实现类中哪些是线程安全的？如何保证ArrayList线程安全？
+线程安全的实现类：Vector（方法加synchronized）、Stack（继承Vector）、CopyOnWriteArrayList（JUC 包，写时复制机制）。
+ArrayList线程不安全：多线程同时修改（如add/remove）可能导致数据不一致（如元素丢失）或抛出ConcurrentModificationException。
+让ArrayList线程安全的方式：
+使用Collections.synchronizedList(new ArrayList<>())：返回一个包装类，所有方法通过synchronized加锁（性能较低）。
+使用CopyOnWriteArrayList（推荐）：读操作无锁（效率高），写操作（add/remove）时复制一份新数组，修改后替换原数组（适合 “读多写少” 场景）。
